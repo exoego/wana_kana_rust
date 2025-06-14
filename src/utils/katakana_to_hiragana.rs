@@ -119,6 +119,7 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
 #[test]
 fn test_katakana_to_hiragana() {
     assert_eq!(katakana_to_hiragana("カタカナ"), "かたかな");
+    assert_eq!(katakana_to_hiragana("ｶﾀｶﾅ"), "かたかな");
     assert_eq!(
         katakana_to_hiragana("カタカナ is a type of kana"),
         "かたかな is a type of kana"
