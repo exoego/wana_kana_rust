@@ -131,7 +131,7 @@ mod tests {
     mod hankaku_katakana {
         use super::*;
         #[test]
-        fn converts_to_hiragana() {
+        fn converts_to_katakana() {
             assert_eq!(to_katakana("ｱｲｳｴｵｶｷｸｹｺ"), "アイウエオカキクケコ");
             assert_eq!(to_katakana("ｻｼｽｾｿﾀﾁﾂﾃﾄ"), "サシスセソタチツテト");
             assert_eq!(to_katakana("ﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎ"), "ナニヌネノハヒフヘホ");

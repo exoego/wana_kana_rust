@@ -231,7 +231,7 @@ mod tests {
     mod halfwidth_katakana {
         use super::*;
         #[test]
-        fn converts_to_hiragana() {
+        fn converts_to_romaji() {
             assert_eq!(to_romaji("ｱｲｳｴｵｶｷｸｹｺ"), "aiueokakikukeko");
             assert_eq!(to_romaji("ｻｼｽｾｿﾀﾁﾂﾃﾄ"), "sashisusesotachitsuteto");
             assert_eq!(to_romaji("ﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎ"), "naninunenohahifuheho");
