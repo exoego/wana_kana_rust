@@ -1,7 +1,7 @@
 use crate::constants::{HIRAGANA_START, KATAKANA_START};
 use crate::utils::is_char_hiragana::*;
-use crate::utils::is_char_long_dash::*;
 use crate::utils::is_char_slash_dot::*;
+use crate::utils::is_prolonged_sound::*;
 
 /// Convert [Hiragana](https://en.wikipedia.org/wiki/Hiragana) to [Katakana](https://en.wikipedia.org/wiki/Katakana)
 ///
@@ -22,7 +22,7 @@ pub fn hiragana_to_katakana(input: &str) -> String {
     let mut kata = vec![];
     for char in input.chars() {
         // Short circuit to avoid incorrect codeshift for 'ー' and '・'
-        if is_char_long_dash(char) || is_char_slash_dot(char) {
+        if is_prolonged_sound(char) || is_char_slash_dot(char) {
             kata.push(char);
         } else if is_char_hiragana(char) {
             // Shift charcode.

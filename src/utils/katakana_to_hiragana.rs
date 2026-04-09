@@ -19,14 +19,14 @@ use crate::halfwidth_to_hiragana_node_tree::HALFWIDTH_KATAKANA_TO_HIRAGANA_NODE_
 use crate::to_romaji::TO_ROMAJI_NODE_TREE;
 use crate::utils::is_char_halfwidth_katakana::is_char_halfwidth_katakana;
 use crate::utils::is_char_katakana::*;
-use crate::utils::is_char_long_dash::*;
 use crate::utils::is_char_slash_dot::*;
+use crate::utils::is_prolonged_sound::*;
 
 pub fn is_char_initial_long_dash(char: char, index: usize) -> bool {
-    is_char_long_dash(char) && index == 0
+    is_prolonged_sound(char) && index == 0
 }
 pub fn is_char_inner_long_dash(char: char, index: usize) -> bool {
-    is_char_long_dash(char) && index != 0
+    is_prolonged_sound(char) && index != 0
 }
 pub fn is_kana_as_symbol(char: char) -> bool {
     'ヶ' == char || 'ヵ' == char
@@ -47,12 +47,7 @@ pub fn katakana_to_hiragana(input: &str) -> String {
 }
 
 pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: bool) -> String {
-    // Normalize halfwidth prolonged sound mark 'ｰ' to fullwidth 'ー' so that
-    // the long-vowel transformation below applies uniformly.
-    let chars: Vec<char> = input
-        .chars()
-        .map(|c| if c == 'ｰ' { 'ー' } else { c })
-        .collect();
+    let chars = input.chars().collect::<Vec<_>>();
     let mut hira = Vec::with_capacity(chars.len());
     let mut previous_kana: Option<char> = None;
     let mut count: usize = 0;
@@ -90,7 +85,7 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
             if let Some(hit) = romaji_opt.and_then(|romaji| LONG_VOWELS.get(&romaji)) {
                 hira.push(*hit);
             }
-        } else if !is_char_long_dash(input_char) && is_char_katakana(input_char) {
+        } else if !is_prolonged_sound(input_char) && is_char_katakana(input_char) {
             let hira_char = match input_char {
                 // rare special cases
                 'ヷ' => 'わ', // wa with a voiced mark
