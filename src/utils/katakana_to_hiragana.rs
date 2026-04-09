@@ -109,8 +109,8 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
             previous_kana = Some(hira_char);
         } else if is_char_halfwidth_katakana(input_char) {
             let result = HALFWIDTH_KATAKANA_TO_HIRAGANA_NODE_TREE.get(&chars[index..]);
-            result.0.chars().for_each(|char| hira.push(char));
-            count += result.1 ;
+            hira.extend(result.0.chars());
+            count += result.1;
         } else {
             // Pass non katakana chars through
             hira.push(input_char);
