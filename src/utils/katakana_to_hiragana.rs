@@ -47,7 +47,12 @@ pub fn katakana_to_hiragana(input: &str) -> String {
 }
 
 pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: bool) -> String {
-    let chars = input.chars().collect::<Vec<_>>();
+    // Normalize halfwidth prolonged sound mark 'ｰ' to fullwidth 'ー' so that
+    // the long-vowel transformation below applies uniformly.
+    let chars: Vec<char> = input
+        .chars()
+        .map(|c| if c == 'ｰ' { 'ー' } else { c })
+        .collect();
     let mut hira = Vec::with_capacity(chars.len());
     let mut previous_kana: Option<char> = None;
     let mut count: usize = 0;
@@ -105,6 +110,9 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
         } else if is_char_halfwidth_katakana(input_char) {
             let result = HALFWIDTH_KATAKANA_TO_HIRAGANA_NODE_TREE.get(&chars[count..]);
             hira.extend(result.0.chars());
+            // Track the last produced kana so a following 'ー' can trigger
+            // the long-vowel transformation (e.g. 'ｽｰ' => 'すう').
+            previous_kana = result.0.chars().last();
             count += result.1 - 1;
         } else {
             // Pass non katakana chars through

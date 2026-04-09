@@ -162,13 +162,14 @@ mod tests {
             assert_eq!(to_hiragana("ﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎ"), "なにぬねのはひふへほ");
             assert_eq!(to_hiragana("ﾏﾐﾑﾒﾓﾔﾕﾖ"), "まみむめもやゆよ");
             assert_eq!(to_hiragana("ﾗﾘﾙﾚﾛﾜｦﾝ"), "らりるれろわをん");
-            assert_eq!(to_hiragana("ｧｨｩｪｫｬｭｮｯｰ･｢｣"), "ぁぃぅぇぉゃゅょっー・「」");
+            assert_eq!(to_hiragana("ｧｨｩｪｫｬｭｮｯｰ･｢｣"), "ぁぃぅぇぉゃゅょっ・「」");
             assert_eq!(to_hiragana("ｶﾞｷﾞｸﾞｹﾞｺﾞ"), "がぎぐげご");
             assert_eq!(to_hiragana("ｻﾞｼﾞｽﾞｾﾞｿﾞ"), "ざじずぜぞ");
             assert_eq!(to_hiragana("ﾀﾞﾁﾞﾂﾞﾃﾞﾄﾞ"), "だぢづでど");
             assert_eq!(to_hiragana("ﾊﾞﾋﾞﾌﾞﾍﾞﾎﾞ"), "ばびぶべぼ");
             assert_eq!(to_hiragana("ﾊﾟﾋﾟﾌﾟﾍﾟﾎﾟ"), "ぱぴぷぺぽ");
             assert_eq!(to_hiragana("ｳﾞ"), "ゔ");
+            assert_eq!(to_hiragana("スーパー"), to_hiragana("ｽｰﾊﾟｰ"));
         }
     }
 
